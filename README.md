@@ -83,10 +83,8 @@ The following entry points are available:
 
 - `main.py`: The primary script to execute the full pipeline.
 
-## Tests
 
-- [ ] **TODO**: Add automated tests for pipeline steps and retriever logic.
 
 ## License
 
-- [ ] **TODO**: Specify the license for this project.
+- MIT
