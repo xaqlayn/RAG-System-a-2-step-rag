@@ -27,6 +27,21 @@ This system utilizes an autonomous **RAG Agent** workflow:
 
 ## 🚀 Deployment & Installation
 
+## ⚡ Quick Start (The One-Click Way)
+If you have Docker installed, simply run the setup script to pull the images and models automatically:
+
+
+chmod +x setup.sh
+./setup.sh
+---
+
+## 🔧 Technical Challenges Overcome
+* **Local Optimization:** Configured the system to run efficiently on local hardware with 8GB RAM using `python-slim` images.
+* **Service Isolation:** Used Docker Compose to isolate the AI engine from the UI, communicating solely through a secure internal bridge network.
+* **Agent Logic:** Fine-tuned the retrieval chain to prevent the Agent from "hallucinating" facts outside of the provided Nike 10-K context.
+
+---
+
 ### 🐳 Option A: The Docker Way (Recommended)
 1.  **Clone the Repository:**
     ```bash
@@ -45,13 +60,27 @@ This system utilizes an autonomous **RAG Agent** workflow:
 4.  **View the App:** Go to [http://localhost:8501](http://localhost:8501)
 
 ---
+### 🐍 Option B: Local Development (PyCharm/Terminal)
+If you want to run the code directly on your machine:
 
-## 🔧 Technical Challenges Overcome
-* **Local Optimization:** Configured the system to run efficiently on local hardware with 8GB RAM using `python-slim` images.
-* **Service Isolation:** Used Docker Compose to isolate the AI engine from the UI, communicating solely through a secure internal bridge network.
-* **Agent Logic:** Fine-tuned the retrieval chain to prevent the Agent from "hallucinating" facts outside of the provided Nike 10-K context.
+1.  **Install Dependencies:**
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+2.  **Ensure Ollama is running** on your Mac/PC and pull the models:
+    ```bash
+    ollama pull llama3.1:8b
+    ollama pull nomic-embed-text
+    ```
+
+3.  **Run the UI:**
+    ```bash
+    streamlit run app.py
+    ```
 
 ---
+
 
 ## 👨‍💻 Author
 **Saqlain Majeed** [GitHub](https://github.com/xaqlayn) | [Docker Hub](https://hub.docker.com/u/xack1122)
