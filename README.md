@@ -1,90 +1,57 @@
-# PythonProject101: RAG Pipeline with LangChain & Ollama
+# 👟 Nike 10K - Local RAG Agent System
 
-This project implements a Retrieval-Augmented Generation (RAG) pipeline to query and interact with PDF documents. It uses LangChain for orchestration, Ollama for local LLM and embedding models, and `uv` for dependency management.
+A high-performance **RAG Agent** application designed to query complex financial documents (Nike 2023 10-K) using a fully **local LLM stack**. This project demonstrates a production-grade AI pipeline focused on **data privacy**, **LangChain orchestration**, and **Docker containerization**.
 
-## Overview
+## 🔐 Privacy-First Architecture
+Unlike cloud-based AI solutions, this system is built for maximum data security:
+- **100% Local Inference:** Powered by Ollama; no data ever leaves your local environment.
+- **Privacy-Compliant:** Ideal for sensitive financial documents where cloud uploads are restricted.
+- **No Third-Party APIs:** Eliminates dependency on OpenAI, Anthropic, or other external providers.
 
-The pipeline performs the following steps:
-1.  **Load**: Loads a PDF document (e.g., `nke-10k-2023.pdf`).
-2.  **Split**: Splits the document into manageable chunks.
-3.  **Embed & Store**: Generates embeddings using Ollama and stores them in an in-memory vector store.
-4.  **Retrieve**: Performs similarity searches to find relevant chunks for a given query.
-5.  **Augment & Generate**: (Optional) Uses an agent-like setup to answer questions based on the retrieved context.
+## 🧠 System Architecture: The Agentic Approach
+This system utilizes an autonomous **RAG Agent** workflow:
+1.  **Tool Reasoning:** The LLM (Llama 3.1) dynamically decides when to consult the Nike 10-K report based on user intent.
+2.  **Autonomous Retrieval:** The Agent uses a specialized `retriever_tool` and **Nomic Embeddings** to extract high-precision data from the vector store.
+3.  **Synthesized Response:** The Agent synthesizes the findings into a coherent response, grounded strictly in the provided local context.
 
-## Requirements
+---
 
-- **Python**: 3.13 or higher (managed via `uv`)
-- **Ollama**: Installed and running locally.
-- **Models**:
-    - LLM: `llama3.1:8b` (default, configurable)
-    - Embeddings: `nomic-embed-text` (default, configurable)
-- **Data**: A PDF file (defaults to `./nke-10k-2023.pdf`).
+## 🛠️ Tech Stack
+* **LLM:** Llama 3.1:8b (Local via Ollama)
+* **Embeddings:** Nomic-Embed-Text (Local via Ollama)
+* **Agent Framework:** LangChain (ChatOllama, AgentExecutor)
+* **UI:** Streamlit
+* **DevOps:** Docker, Docker Hub, Docker Compose
 
-## Project Structure
+---
 
-```text
-.
-├── Configuration.py            # Settings and environment configuration
-├── Pipeline_steps.py           # Core RAG steps: load, split, build vector store
-├── Retriever_tool_agent_setup.py # Retriever chains, tools, and agent demo logic
-├── main.py                     # Main entry point for the pipeline
-├── nke-10k-2023.pdf            # Sample data (Nike 10-K report)
-├── pyproject.toml              # Project dependencies and metadata
-└── uv.lock                     # Lock file for deterministic dependencies
-```
+## 🚀 Deployment & Installation
 
-## Setup
-
-1.  **Install `uv`**:
-    Follow the [official installation guide](https://github.com/astral-sh/uv).
-
-2.  **Install Dependencies**:
+### 🐳 Option A: The Docker Way (Recommended)
+1.  **Clone the Repository:**
     ```bash
-    uv sync
+    git clone [https://github.com/xaqlayn/RAG-System-a-2-step-rag.git](https://github.com/xaqlayn/RAG-System-a-2-step-rag.git)
+    cd RAG-System-a-2-step-rag
     ```
-
-3.  **Prepare Ollama**:
-    Ensure Ollama is running and pull the required models:
+2.  **Launch the System:**
     ```bash
-    ollama pull llama3.1:8b
-    ollama pull nomic-embed-text
+    docker compose up -d
     ```
+3.  **Initialize the Local Models:**
+    ```bash
+    docker exec -it ollama ollama pull llama3.1:8b
+    docker exec -it ollama ollama pull nomic-embed-text
+    ```
+4.  **View the App:** Go to [http://localhost:8501](http://localhost:8501)
 
-## Usage
+---
 
-To run the main RAG pipeline and agent demo:
+## 🔧 Technical Challenges Overcome
+* **Local Optimization:** Configured the system to run efficiently on local hardware with 8GB RAM using `python-slim` images.
+* **Service Isolation:** Used Docker Compose to isolate the AI engine from the UI, communicating solely through a secure internal bridge network.
+* **Agent Logic:** Fine-tuned the retrieval chain to prevent the Agent from "hallucinating" facts outside of the provided Nike 10-K context.
 
-```bash
-uv run main.py
-```
+---
 
-This will:
-- Load the PDF specified in `Configuration.py`.
-- Split it into chunks and build a vector store.
-- Run a few basic test queries.
-- Demonstrate a retriever chain batch execution.
-- Launch an agent demo answering "When was Nike incorporated?".
-
-## Configuration
-
-Settings are managed in `Configuration.py` via the `Settings` dataclass. You can modify:
-
-- `pdf_path`: Path to your PDF file.
-- `llm_model`: The Ollama LLM model name.
-- `embedding_model`: The Ollama embedding model name.
-- `chunk_size` / `chunk_overlap`: Text splitting parameters.
-
-### Environment Variables
-- `no_proxy` / `NO_PROXY`: Set to `localhost,127.0.0.1` by default in `Configuration.configure_environment()` to ensure local communication with Ollama.
-
-## Scripts
-
-The following entry points are available:
-
-- `main.py`: The primary script to execute the full pipeline.
-
-
-
-## License
-
-- MIT
+## 👨‍💻 Author
+**Saqlain Majeed** [GitHub](https://github.com/xaqlayn) | [Docker Hub](https://hub.docker.com/u/xack1122)
