@@ -1,9 +1,6 @@
-# -----------------------------
-# Configuration
-# -----------------------------
-
-from dataclasses import dataclass
+# Configuration.py
 import os
+from dataclasses import dataclass
 
 @dataclass(frozen=True)
 class Settings:
@@ -16,11 +13,7 @@ class Settings:
     add_start_index: bool = True
     top_k_default: int = 2
 
-
 def configure_environment() -> None:
-    """
-    Keep networking behavior explicit & reproducible.
-    Adjust if your environment differs.
-    """
+    # Important: In Docker, OLLAMA_HOST will be 'http://ollama:11434'
     os.environ.setdefault("no_proxy", "localhost,127.0.0.1")
     os.environ.setdefault("NO_PROXY", "localhost,127.0.0.1")

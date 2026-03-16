@@ -1,0 +1,19 @@
+services:
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ./ollama_storage:/root/.ollama
+
+  rag-app:
+    # Use your Docker Hub image instead of "build: ."
+    image: xack1122/nike-rag-app:latest
+    container_name: nike-rag-app
+    depends_on:
+      - ollama
+    ports:
+      - "8501:8501"
+    environment:
+      - OLLAMA_HOST=http://ollama:11434

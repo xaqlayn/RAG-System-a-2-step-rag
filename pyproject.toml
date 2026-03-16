@@ -10,4 +10,5 @@ dependencies = [
     "langchain-ollama",
     "langchain-text-splitters>=1.1.1",
     "pypdf",
+    "streamlit>=1.55.0",
 ]

@@ -1,0 +1,5 @@
+.venv/
+__pycache__/
+ollama_storage/
+*.pdf
+.DS_Store
